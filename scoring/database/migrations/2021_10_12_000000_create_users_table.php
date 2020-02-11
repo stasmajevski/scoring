@@ -18,12 +18,14 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('email')->unique();
-            $table->string('education');
+            $table->unsignedBigInteger('education_id')->index();
             $table->string('phone');
             $table->boolean('terms')->default(false);
             $table->integer('scoring');
 
             $table->timestamps();
+
+            $table->foreign('education_id')->references('id')->on('education_levels');
         });
     }
 

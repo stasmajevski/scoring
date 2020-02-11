@@ -33,8 +33,8 @@ class User extends Model
      *
      * @return HasOne
      */
-    public function scoring()
+    public function education()
     {
-        return $this->hasOne(UserScoring::class);
+        return $this->hasOne(EducationLevel::class);
     }
 }
