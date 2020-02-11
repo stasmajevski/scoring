@@ -22,7 +22,6 @@ class UserObserver
     private function calculateScoring($user)
     {
         return $this->calculateEmailScoring($user->email) + $this->calculateEducationScoring($user->education_id);
-
     }
 
     private function calculateEmailScoring($email)
@@ -33,6 +32,6 @@ class UserObserver
 
     private function calculateEducationScoring($education)
     {
-        return EducationLevel::where($education)->first()->scoring;
+        return EducationLevel::whereId($education)->first()->scoring;
     }
 }

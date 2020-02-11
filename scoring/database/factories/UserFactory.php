@@ -19,13 +19,14 @@ use Illuminate\Support\Str;
 |
 */
 
+
 $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->firstName,
         'surname' => $faker->lastName,
         'email' => $faker->unique()->email,
         'education_id' => EducationLevel::all()->random()->id,
-        'phone' => $faker->phoneNumber,
+        'phone' => $faker->regexify("^79[0-9]{9}$"),
         'terms' => $faker->boolean,
     ];
 });
