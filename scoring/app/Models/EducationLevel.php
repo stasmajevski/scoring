@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class EducationLevel extends Model
 {
     /**
-     * The relationships between CountryTier and Country models.
+     * The relationships between EducationLevel and User models.
      *
      * @return HasMany
      */
-    public function user()
+    public function users()
     {
         return $this->hasMany(User::class);
     }
