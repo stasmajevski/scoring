@@ -7,6 +7,7 @@ use App\Models\EducationLevel;
 use App\Models\EmailDomain;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,11 @@ use Illuminate\Support\Str;
 
 
 $factory->define(User::class, function (Faker $faker) {
+    $email = [Str::random(10) . '@' . EmailDomain::where('name', '<>', 'other')->get()->random()->name, $faker->unique()->freeEmail];
     return [
         'name' => $faker->firstName,
         'surname' => $faker->lastName,
-        'email' => $faker->unique()->email,
+        'email' => Arr::random($email),
         'education_id' => EducationLevel::all()->random()->id,
         'phone' => $faker->regexify("^79[0-9]{9}$"),
         'terms' => $faker->boolean,
