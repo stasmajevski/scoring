@@ -22,7 +22,7 @@ use Illuminate\Support\Arr;
 
 
 $factory->define(User::class, function (Faker $faker) {
-    $email = [Str::random(10) . '@' . EmailDomain::where('name', '<>', 'other')->get()->random()->name, $faker->unique()->freeEmail];
+    $email = [Str::random(10) . '@' . EmailDomain::all()->random()->name, $faker->unique()->freeEmail];
     return [
         'name' => $faker->firstName,
         'surname' => $faker->lastName,

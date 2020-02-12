@@ -19,7 +19,7 @@ class ScoringRepository
             + $this->calculateTermsScoring($user->terms);
     }
 
-    private function calculateEmailScoring($email)
+    protected function calculateEmailScoring($email)
     {
         $emailDomain = Str::after($email, '@');
         $emailScoring = EmailDomain::firstWhere('name', $emailDomain);
@@ -27,12 +27,12 @@ class ScoringRepository
         return $emailScoring ? $emailScoring->scoring : EmailDomain::DEFAULT_SCORE;
     }
 
-    private function calculateEducationScoring($education)
+    protected function calculateEducationScoring($education)
     {
         return EducationLevel::firstWhere('id', $education)->scoring;
     }
 
-    private function calculatePhoneScoring($phoneNumber)
+    protected function calculatePhoneScoring($phoneNumber)
     {
         $userPhoneOperator = substr($phoneNumber, 1, 3);
         $phoneOperatorCode = PhoneOperatorCode::firstWhere('code', $userPhoneOperator);
@@ -40,7 +40,7 @@ class ScoringRepository
         return $phoneOperatorCode ? $phoneOperatorCode->phoneOperator->scoring : PhoneOperator::DEFAULT_SCORING;
     }
 
-    private function calculateTermsScoring($terms)
+    public function calculateTermsScoring($terms)
     {
         return $terms ? User::TERMS_ACCEPTED_SCORE : User::DEFAULT_SCORE;
     }

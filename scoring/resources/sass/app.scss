@@ -6,3 +6,17 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+.btn i, .info i {
+    font-size: 21px;
+}
+
+.btn i {
+    float: left;
+    margin-right: 5px;
+}
+
+.info i {
+    cursor: default;
+}
