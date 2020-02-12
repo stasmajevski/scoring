@@ -32,11 +32,7 @@ class EmailDomainsTableSeeder extends Seeder
             [
                 'name' => 'mail.ru',
                 'scoring' => 6,
-            ],
-            [
-                'name' => 'other',
-                'scoring' => 3,
-            ],
+            ]
         ];
     }
 

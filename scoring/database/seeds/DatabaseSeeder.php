@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
              EducationLevelsTableSeeder::class,
              EmailDomainsTableSeeder::class,
              PhoneOperatorsTableSeeder::class,
-             UsersTableSeeder::class
+             UsersTableSeeder::class,
+             PhoneOperatorCodesTableSeeder::class
          ]);
     }
 }

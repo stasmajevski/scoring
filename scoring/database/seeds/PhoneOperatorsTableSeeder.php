@@ -32,11 +32,7 @@ class PhoneOperatorsTableSeeder extends Seeder
             [
                 'name' => 'mts',
                 'scoring' => 3,
-            ],
-            [
-                'name' => 'other',
-                'scoring' => 1,
-            ],
+            ]
         ];
     }
 

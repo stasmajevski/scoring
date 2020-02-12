@@ -32,11 +32,7 @@ class EducationLevelsTableSeeder extends Seeder
             [
                 'name' => 'secondary',
                 'scoring' => 5,
-            ],
-            [
-                'name' => 'other',
-                'scoring' => 0,
-            ],
+            ]
         ];
     }
 
