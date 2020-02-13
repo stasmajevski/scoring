@@ -11,10 +11,22 @@
 <div class="container">
     <nav class="navbar navbar-dark bg-primary">
         <h2 style="color:white">Users Scoring</h2>
-        <a href="" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i><span>Add New User</span></a>
+        <a href="" class="btn btn-success" data-toggle="modal" data-target="#create"><i class="material-icons">&#xE147;</i><span>Add User</span></a>
     </nav>
+    @include('users.create-modal')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     @yield('main')
 </div>
-<script src="{{ asset('js/app.js') }}" type="text/js"></script>
+
+<script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 </html>

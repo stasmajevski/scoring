@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Services;
 
 use App\Models\EducationLevel;
 use App\Models\EmailDomain;
@@ -9,7 +9,7 @@ use App\Models\PhoneOperatorCode;
 use App\Models\User;
 use Illuminate\Support\Str;
 
-class ScoringRepository implements \ScoringRepositoryInterface
+class ScoringService
 {
     public function calculate($user)
     {
@@ -22,20 +22,20 @@ class ScoringRepository implements \ScoringRepositoryInterface
     public function emailScoring($email)
     {
         $emailDomain = Str::after($email, '@');
-        $emailScoring = EmailDomain::firstWhere('name', $emailDomain);
+        $emailScoring = EmailDomain::where('name', $emailDomain)->first();
 
         return $emailScoring ? $emailScoring->scoring : EmailDomain::DEFAULT_SCORE;
     }
 
     public function educationScoring($education)
     {
-        return EducationLevel::firstWhere('id', $education)->scoring;
+        return EducationLevel::where('id', $education)->first()->scoring;
     }
 
     public function phoneScoring($phoneNumber)
     {
         $userPhoneOperator = substr($phoneNumber, 1, 3);
-        $phoneOperatorCode = PhoneOperatorCode::firstWhere('code', $userPhoneOperator);
+        $phoneOperatorCode = PhoneOperatorCode::where('code', $userPhoneOperator)->first();
 
         return $phoneOperatorCode ? $phoneOperatorCode->phoneOperator->scoring : PhoneOperator::DEFAULT_SCORING;
     }

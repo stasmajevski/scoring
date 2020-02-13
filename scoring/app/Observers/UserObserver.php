@@ -14,6 +14,6 @@ class UserObserver
      */
     public function saving(User $user)
     {
-        $user->scoring = $user->calculateScoring();
+        $user->scoring = resolve('ScoringService')->calculate($user);
     }
 }

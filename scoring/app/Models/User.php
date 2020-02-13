@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Repositories\ScoringRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -10,13 +9,22 @@ class User extends Model
 {
     const TERMS_ACCEPTED_SCORE = 4;
     const DEFAULT_SCORE = 0;
-    private $scoringRepository;
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->scoringRepository = new ScoringRepository();
-    }
+    protected $with = [
+        'education'
+    ];
+
+    /**
+     * The attributes that should be appended to response.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'educationName',
+        'emailScoring',
+        'phoneScoring',
+        'termsScoring'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -37,6 +45,67 @@ class User extends Model
     ];
 
     /**
+     * Build attribute for getting education name.
+     *
+     * @return mixed|string
+     */
+
+    protected function getEducationNameAttribute()
+    {
+        return $this->getEducationName();
+    }
+
+    protected function getEducationName()
+    {
+        return ucfirst($this->education->name);
+    }
+
+    /**
+     * Build attribute for getting email scoring.
+     *
+     * @return mixed|string
+     */
+    public function getEmailScoringAttribute()
+    {
+        return $this->getEmailScoring();
+    }
+
+    public function getEmailScoring()
+    {
+        return resolve('ScoringService')->emailScoring($this->email);
+    }
+
+    /**
+     * Build attribute for getting phone scoring.
+     *
+     * @return mixed|string
+     */
+    public function getPhoneScoringAttribute()
+    {
+        return $this->getPhoneScoring();
+    }
+
+    public function getPhoneScoring()
+    {
+        return resolve('ScoringService')->phoneScoring($this->phone);
+    }
+
+    /**
+     * Build attribute for getting terms scoring.
+     *
+     * @return mixed|string
+     */
+    public function getTermsScoringAttribute()
+    {
+        return $this->getTermsScoring();
+    }
+
+    public function getTermsScoring()
+    {
+        return resolve('ScoringService')->termsScoring($this->terms);
+    }
+
+    /**
      * The relationships between User and Education models.
      *
      * @return HasOne
@@ -46,13 +115,4 @@ class User extends Model
         return $this->hasOne(EducationLevel::class, 'id', 'education_id');
     }
 
-    public function calculateScoring()
-    {
-        return $this->scoringRepository->calculate($this);
-    }
-
-    public function calculateTerms()
-    {
-        return $this->scoringRepository->calculateTermsScoring($this->terms);
-    }
 }

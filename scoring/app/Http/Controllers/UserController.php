@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Users\StoreUserRequest;
+use App\Models\EducationLevel;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('education')->paginate(10);
+        $users = User::paginate(10);
+        $educations = EducationLevel::all();
 
-        return view('users.index', ['users' => $users]);
+        return view('users.index', [
+            'users' => $users,
+            'educations' => $educations
+        ]);
     }
 
     /**
@@ -33,12 +38,16 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreUserRequest $userRequest
+     * @param  StoreUserRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $userRequest)
+    public function store(StoreUserRequest $request)
     {
+        $request->terms = $request->has('terms') ? true : false;
+        $data = $request->validated();
 
+        User::create($data);
+        return redirect('/users')->with('success', 'User saved!');
     }
 
     /**

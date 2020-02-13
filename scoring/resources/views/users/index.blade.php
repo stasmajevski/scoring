@@ -1,5 +1,4 @@
 @extends('base')
-
 @section('main')
     <div class="row">
         <div class="col-sm-12">
@@ -13,7 +12,7 @@
                         <th>Education</th>
                         <th>Terms</th>
                         <th>Scoring</th>
-                        <th>Actions</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,11 +22,17 @@
                         <td>{{$user->name}} {{$user->surname}}</td>
                         <td>{{$user->phone}}</td>
                         <td>{{$user->email}}</td>
-                        <td>{{ucfirst($user->education->name)}}</td>
-                        <td>{{$user->terms}}</td>
+                        <td>{{$user->educationName}}</td>
+                        <td><input type="checkbox" @if($user->terms) checked @endif disabled></td>
                         <td class="info">
                             {{$user->scoring}}
-                            <i class="material-icons info_outline" data-toggle="tooltip" data-html="true" data-placement="right" title="Education: {{$user->education->scoring}} <br/> Terms: {{$user->calculateTerms()}}">
+                            <i class="material-icons info_outline" data-toggle="tooltip" data-html="true" data-placement="right"
+                               title="<div style='display:grid;grid-template-columns: 1fr 1fr;'>
+                               <div>Phone: {{$user->phoneScoring}}</div>
+                               <div>Email: {{$user->emailScoring}}</div>
+                               <div>Education: {{$user->education->scoring}}</div>
+                               <div>Terms: {{$user->termsScoring}}</div>
+                               </div>">
                                 &#xe88f;
                             </i>
                         </td>
