@@ -1,4 +1,8 @@
 @extends('base')
+@section('button')
+    <a href="" class="btn btn-success" data-toggle="modal" data-target="#create"><i class="material-icons">add_circle</i><span>Add User</span></a>
+@endsection
+@include('users.create-modal')
 @section('main')
     <div class="row">
         <div class="col-sm-12">

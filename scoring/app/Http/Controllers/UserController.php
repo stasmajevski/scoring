@@ -16,23 +16,15 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
+        $users = User::orderBy('id', 'desc')
+            ->paginate(10);
+
         $educations = EducationLevel::all();
 
         return view('users.index', [
             'users' => $users,
             'educations' => $educations
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -43,22 +35,11 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $request->terms = $request->has('terms') ? true : false;
         $data = $request->validated();
 
         User::create($data);
-        return redirect('/users')->with('success', 'User saved!');
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return back()->with('success', 'User saved!');
     }
 
     /**
@@ -69,18 +50,28 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $getUser = User::findOrFail($id);
+        $educations = EducationLevel::all();
+
+        return view('users.edit', [
+            'getUser' => $getUser,
+            'educations' => $educations
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreUserRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUserRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+
+        User::findOrFail($id)->update($data);
+
+        return back()->with('success', 'User updated!');
     }
 }

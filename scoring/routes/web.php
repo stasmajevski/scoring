@@ -11,4 +11,10 @@
 |
 */
 
-Route::resource('users', 'UserController');
+use App\Http\Controllers\UserController;
+
+Route::get('/', [UserController::class, 'index']);
+Route::post('/', [UserController::class, 'store']);
+
+Route::get('/{id}', [UserController::class, 'edit']);
+Route::put('/{id}', [UserController::class, 'update']);
