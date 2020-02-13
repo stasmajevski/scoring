@@ -9,17 +9,17 @@ use App\Models\PhoneOperatorCode;
 use App\Models\User;
 use Illuminate\Support\Str;
 
-class ScoringRepository
+class ScoringRepository implements \ScoringRepositoryInterface
 {
     public function calculate($user)
     {
-        return $this->calculateEmailScoring($user->email)
-            + $this->calculateEducationScoring($user->education_id)
-            + $this->calculatePhoneScoring($user->phone)
-            + $this->calculateTermsScoring($user->terms);
+        return $this->emailScoring($user->email)
+            + $this->educationScoring($user->education_id)
+            + $this->phoneScoring($user->phone)
+            + $this->termsScoring($user->terms);
     }
 
-    private function calculateEmailScoring($email)
+    public function emailScoring($email)
     {
         $emailDomain = Str::after($email, '@');
         $emailScoring = EmailDomain::firstWhere('name', $emailDomain);
@@ -27,12 +27,12 @@ class ScoringRepository
         return $emailScoring ? $emailScoring->scoring : EmailDomain::DEFAULT_SCORE;
     }
 
-    private function calculateEducationScoring($education)
+    public function educationScoring($education)
     {
         return EducationLevel::firstWhere('id', $education)->scoring;
     }
 
-    private function calculatePhoneScoring($phoneNumber)
+    public function phoneScoring($phoneNumber)
     {
         $userPhoneOperator = substr($phoneNumber, 1, 3);
         $phoneOperatorCode = PhoneOperatorCode::firstWhere('code', $userPhoneOperator);
@@ -40,7 +40,7 @@ class ScoringRepository
         return $phoneOperatorCode ? $phoneOperatorCode->phoneOperator->scoring : PhoneOperator::DEFAULT_SCORING;
     }
 
-    private function calculateTermsScoring($terms)
+    public function termsScoring($terms)
     {
         return $terms ? User::TERMS_ACCEPTED_SCORE : User::DEFAULT_SCORE;
     }
