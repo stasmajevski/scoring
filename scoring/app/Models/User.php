@@ -43,11 +43,16 @@ class User extends Model
      */
     public function education()
     {
-        return $this->hasOne(EducationLevel::class);
+        return $this->hasOne(EducationLevel::class, 'id', 'education_id');
     }
 
     public function calculateScoring()
     {
         return $this->scoringRepository->calculate($this);
+    }
+
+    public function calculateTerms()
+    {
+        return $this->scoringRepository->calculateTermsScoring($this->terms);
     }
 }
