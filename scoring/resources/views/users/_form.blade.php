@@ -9,7 +9,7 @@
     </div>
     <div class="form-group">
         <label for="phone">Phone</label>
-        <input id="phone" name="phone" type="text" class="form-control" value="@if(isset($getUser->phone)) {{$getUser->phone}} @endif" required>
+        <input id="phone" name="phone" pattern="" type="text" class="form-control" value="@if(isset($getUser->phone)) {{$getUser->phone}} @endif" required>
     </div>
     <div class="form-group">
         <label for="email">E-mail</label>
@@ -36,7 +36,7 @@
     </div>
     <div class="form-group">
         <div class="form-check">
-            <input id="terms" name="terms" class="form-check-input" type="checkbox" @if(!isset($getUser->terms)) id="create-terms" @endif @if(isset($getUser->terms) && $getUser->terms) checked id="edit-terms" @endif>
+            <input id="terms" name="terms" class="form-check-input" type="checkbox" @if(isset($getUser->terms) && $getUser->terms) checked @endif>
             <label class="form-check-label" for="terms">
                 I agree with processing of my personal data
             </label>
