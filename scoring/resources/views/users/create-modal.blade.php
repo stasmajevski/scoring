@@ -4,7 +4,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-body">
-                <form method="POST" action="{{ action('UserController@store') }}">
+                <form id="form" method="POST" action="{{ action('UserController@store') }}">
                     @csrf
                     @include('users._form')
                 </form>

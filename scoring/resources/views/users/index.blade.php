@@ -26,7 +26,7 @@
                         <td>{{$user->name}} {{$user->surname}}</td>
                         <td>{{$user->phone}}</td>
                         <td>{{$user->email}}</td>
-                        <td>{{$user->educationName}}</td>
+                        <td>{{$user->education->name}}</td>
                         <td><input type="checkbox" @if($user->terms) checked @endif disabled></td>
                         <td class="info">
                             {{$user->scoring}}
