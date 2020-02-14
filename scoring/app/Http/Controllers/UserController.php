@@ -5,20 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Users\StoreUserRequest;
 use App\Models\EducationLevel;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function index()
     {
-        $users = User::orderBy('id', 'desc')
-            ->paginate(10);
-
+        $users = User::with('education')->orderBy('id', 'desc')->paginate(10);
         $educations = EducationLevel::all();
 
         return view('users.index', [
@@ -31,12 +29,11 @@ class UserController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  StoreUserRequest $request
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function store(StoreUserRequest $request)
     {
         $data = $request->validated();
-
         User::create($data);
 
         return back()->with('success', 'User saved!');
@@ -46,7 +43,7 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function edit($id)
     {
@@ -64,13 +61,12 @@ class UserController extends Controller
      *
      * @param  StoreUserRequest $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function update(StoreUserRequest $request, $id)
     {
         $data = $request->validated();
-
-        User::findOrFail($id)->update($data);
+        User::with('education')->findOrFail($id)->update($data);
 
         return back()->with('success', 'User updated!');
     }

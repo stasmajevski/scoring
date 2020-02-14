@@ -22,20 +22,20 @@ class ScoringService
     public function emailScoring($email)
     {
         $emailDomain = Str::after($email, '@');
-        $emailScoring = EmailDomain::where('name', $emailDomain)->first();
+        $emailScoring = EmailDomain::firstWhere('name', $emailDomain);
 
         return $emailScoring ? $emailScoring->scoring : EmailDomain::DEFAULT_SCORE;
     }
 
     public function educationScoring($education)
     {
-        return EducationLevel::where('id', $education)->first()->scoring;
+        return EducationLevel::firstWhere('id', $education)->scoring;
     }
 
     public function phoneScoring($phoneNumber)
     {
         $userPhoneOperator = substr($phoneNumber, 1, 3);
-        $phoneOperatorCode = PhoneOperatorCode::where('code', $userPhoneOperator)->first();
+        $phoneOperatorCode = PhoneOperatorCode::firstWhere('code', $userPhoneOperator);
 
         return $phoneOperatorCode ? $phoneOperatorCode->phoneOperator->scoring : PhoneOperator::DEFAULT_SCORING;
     }
