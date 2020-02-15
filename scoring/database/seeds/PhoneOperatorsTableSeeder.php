@@ -35,5 +35,4 @@ class PhoneOperatorsTableSeeder extends Seeder
             ]
         ];
     }
-
 }

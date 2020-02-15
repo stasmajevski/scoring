@@ -268,5 +268,4 @@ class PhoneOperatorCodesTableSeeder extends Seeder
             ],
         ];
     }
-
 }

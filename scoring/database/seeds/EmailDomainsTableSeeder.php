@@ -35,5 +35,4 @@ class EmailDomainsTableSeeder extends Seeder
             ]
         ];
     }
-
 }

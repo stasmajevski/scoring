@@ -58,13 +58,9 @@ class User extends Model
      */
     public function getEmailScoringAttribute()
     {
-        return $this->getEmailScoring();
-    }
-
-    public function getEmailScoring()
-    {
         return resolve('ScoringService')->emailScoring($this->email);
     }
+
 
     /**
      * Build attribute for getting email scoring.
@@ -105,5 +101,4 @@ class User extends Model
     {
         return $this->hasOne(EducationLevel::class, 'id', 'education_id');
     }
-
 }
