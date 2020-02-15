@@ -23,7 +23,7 @@ Install all the dependencies using composer and npm
     composer install
     npm install
     
-Compile assets
+Compile webpack assets
 
     npm run dev    
 
@@ -50,6 +50,8 @@ Run the database migrations to create and populate tables
 Start the local development server
 
     php artisan serve
+    
+You can now access the server at http://localhost:8000   
 
 Show all users in console
   
@@ -57,6 +59,4 @@ Show all users in console
 
 Show user in console
   
-    php artisan scoring:show {userId}
-    
-    
+    php artisan scoring:show {userId} 
