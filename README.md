@@ -1,6 +1,4 @@
-# Project name
-
-Users scoring calculation
+# Users scoring calculation
 
 ## Server Requirements
 
