@@ -16,7 +16,11 @@ $(function () {
 
     $("button[type=submit]").attr("disabled", "disabled");
 
-    $('input').keypress(function () {
+    $('input, select').keypress(function () {
+        $("button[type='submit']").removeAttr('disabled');
+    });
+
+    $('select').change(function () {
         $("button[type='submit']").removeAttr('disabled');
     });
 });
