@@ -35,13 +35,12 @@ class ScoringService
     public function phoneScoring($phoneNumber)
     {
         $userPhoneOperator = substr($phoneNumber, 1, 3);
-        $phoneOperatorCode = PhoneOperatorCode::firstWhere('code', $userPhoneOperator);
-
+        $phoneOperatorCode = PhoneOperatorCode::with('phoneOperator')->firstWhere('code', $userPhoneOperator);
         return $phoneOperatorCode ? $phoneOperatorCode->phoneOperator->scoring : PhoneOperator::DEFAULT_SCORING;
     }
 
     public function termsScoring($terms)
     {
-        return $terms ? User::TERMS_ACCEPTED_SCORE : User::DEFAULT_SCORE;
+        return $terms ? User::TERMS_ACCEPTED_SCORE : User::TERMS_NOT_ACCEPTED_SCORE;
     }
 }

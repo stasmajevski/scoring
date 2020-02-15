@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class User extends Model
 {
     const TERMS_ACCEPTED_SCORE = 4;
-    const DEFAULT_SCORE = 0;
+    const TERMS_NOT_ACCEPTED_SCORE = 0;
 
     /**
      * The attributes that should be appended to response.
@@ -16,11 +16,10 @@ class User extends Model
      * @var array
      */
     protected $appends = [
-        'emailScoring',
         'phoneScoring',
+        'emailScoring',
         'educationScoring',
         'termsScoring',
-        //'educationName'
     ];
 
     /**
