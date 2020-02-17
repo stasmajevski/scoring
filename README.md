@@ -35,7 +35,7 @@ Make the required configuration changes in the .env file
     
 Create database in your server
 
-    mysql CREATE DATABASE scoring
+    scoring
 
 Generate a new application key
 
